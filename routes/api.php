@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DeviceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,3 +24,5 @@ Route::controller(AuthController::class)
         Route::post('logout','Logout')->name("logout");
         Route::match(["get","head"],'me','Me')->name("me");
     });
+
+Route::apiResource('devices', DeviceController::class)->except(['show','update']);

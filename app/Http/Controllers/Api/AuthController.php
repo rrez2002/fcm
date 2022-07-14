@@ -25,7 +25,7 @@ class AuthController extends Controller
     /**
      * @param RegisterRequest $request
      * @return JsonResponse
-     * @Route("api/auth/register",methods=["POST"],name="auth.register"})
+     * @Route("api/auth/register",methods=["POST"],name="auth.register")
      */
     public function Register(RegisterRequest $request)
     {
@@ -39,13 +39,13 @@ class AuthController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        return new JsonResponse(["message" => __("message.success", ["attribute" => __("attribute.register")])],Response::HTTP_CREATED);
+        return new JsonResponse(["message" => __("auth.register")],Response::HTTP_CREATED);
     }
 
     /**
      * @param LoginRequest $request
      * @return JsonResponse
-     * @Route("api/auth/login",methods=["POST"],name="auth.login"})
+     * @Route("api/auth/login",methods=["POST"],name="auth.login")
      */
     public function Login(LoginRequest $request)
     {
@@ -55,28 +55,28 @@ class AuthController extends Controller
 
             $token = Auth::user()->createToken("")->plainTextToken;
 
-            return new JsonResponse(["message" => __("message.success", ["attribute" => __("attribute.login")]),"token" => $token],Response::HTTP_OK);
+            return new JsonResponse(["message" => __("auth.login"),"token" => $token],Response::HTTP_OK);
 
         }
-        return new JsonResponse(["message" => __("auth.failed")],Response::HTTP_OK);
+        return new JsonResponse(["message" => __("auth.login_failed")],Response::HTTP_OK);
     }
 
     /**
      * @param Request $request
      * @return JsonResponse
-     * @Route("api/auth/logout",methods=["POST"],name="auth.logout"})
+     * @Route("api/auth/logout",methods=["POST"],name="auth.logout")
      */
     public function Logout(Request $request)
     {
         Auth::user()->currentAccessToken()->delete();
 
-        return new JsonResponse(["message" => __("message.success", ["attribute" => __("attribute.logout")])],Response::HTTP_OK);
+        return new JsonResponse(["message" => __("auth.logout")],Response::HTTP_OK);
     }
 
     /**
      * @param Request $request
      * @return UserResource
-     * @Route("api/auth/me",methods=["GET"],name="auth.me"})
+     * @Route("api/auth/me",methods=["GET"],name="auth.me")
      */
     public function Me(Request $request)
     {
