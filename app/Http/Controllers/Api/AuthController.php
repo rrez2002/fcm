@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BeamsRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
@@ -13,13 +14,14 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Pusher\PushNotifications\PushNotifications;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:sanctum'])->only(['Logout','Me']);
+        $this->middleware(['auth:sanctum'])->except(['Login','Register']);
     }
 
     /**
@@ -81,5 +83,33 @@ class AuthController extends Controller
     public function Me(Request $request)
     {
         return new UserResource($request->user());
+    }
+
+    /**
+     * @param BeamsRequest $request
+     * @return JsonResponse
+     * @throws \Exception
+     * @Route("api/auth/beams",methods=["POST"],name="auth.beams")
+     */
+    public function Beams(BeamsRequest $request)
+    {
+        $PushNotifications = new PushNotifications([
+            "instanceId" => config('broadcasting.connections.pusher.beams_instance_id'),
+            "secretKey" => config('broadcasting.connections.pusher.beams_secret_key'),
+        ]);
+
+        // If you use a different auth system, do your checks here
+        $user = Auth::user();
+        $userIdInQueryParam = $request->input('user_id');
+
+        if ($user->id == $userIdInQueryParam) {
+            $beamsToken = $PushNotifications->generateToken((string)$user->id);
+            $user->update([
+                'fcm_token' => $beamsToken['token'],
+            ]);
+            return new JsonResponse(["message" => __("message.created", ["attribute" => "fcm token"]),"token" => $beamsToken['token']],Response::HTTP_OK);
+        } else {
+            return new JsonResponse(['status' => 'Inconsistent request'], Response::HTTP_NOT_FOUND);
+        }
     }
 }

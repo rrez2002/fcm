@@ -23,6 +23,7 @@ Route::controller(AuthController::class)
         Route::post('login','Login')->name("login");
         Route::post('logout','Logout')->name("logout");
         Route::match(["get","head"],'me','Me')->name("me");
+        Route::post('beams','Beams')->name("beams");
     });
 
 Route::apiResource('devices', DeviceController::class)->except(['show','update']);
