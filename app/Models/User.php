@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +28,6 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
-        'fcm_token',
         'is_admin',
     ];
 
@@ -38,7 +38,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'fcm_token',
         'remember_token',
     ];
 
@@ -52,11 +51,24 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
     ];
 
+    public function isAdmin():bool
+    {
+        return $this->is_admin;
+    }
+
     /**
      * @return HasMany
      */
     public function devices(): HasMany
     {
         return $this->hasMany(Device::class);
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function push_notifiable(): MorphMany
+    {
+        return $this->morphMany(PushNotification::class,"push_notifiable");
     }
 }

@@ -11,6 +11,7 @@ return [
     'finished' => ':attribute canceled successfully',
     'disabled' => ':attribute disabled successfully',
     'enabled' => ':attribute enabled successfully',
+    'sended' => ':attribute sended successfully',
     'increment' => 'successfully increment for :attribute ',
     'decrement' => 'successfully decrement  for :attribute ',
     'not_found' => ':attribute not found',

@@ -103,13 +103,12 @@ class AuthController extends Controller
         $userIdInQueryParam = $request->input('user_id');
 
         if ($user->id == $userIdInQueryParam) {
-            $beamsToken = $PushNotifications->generateToken((string)$user->id);
-            $user->update([
-                'fcm_token' => $beamsToken['token'],
-            ]);
-            return new JsonResponse(["message" => __("message.created", ["attribute" => "fcm token"]),"token" => $beamsToken['token']],Response::HTTP_OK);
-        } else {
-            return new JsonResponse(['status' => 'Inconsistent request'], Response::HTTP_NOT_FOUND);
+            $beamsToken = $PushNotifications->generateToken((string)$user->id)['token'];
+
+            return new JsonResponse(["message" => __("message.created", ["attribute" => "fcm token"]),"token" => $beamsToken],Response::HTTP_OK);
         }
+
+        return new JsonResponse(['message' => __("message.not_found", ["attribute" => __("attribute.user")])], Response::HTTP_NOT_FOUND);
+
     }
 }
