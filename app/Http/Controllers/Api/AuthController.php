@@ -34,7 +34,7 @@ class AuthController extends Controller
         $data = $request->validated();
 
         User::create([
-            'avatar' => Storage::putFile("avatar",$data['avatar']),
+            'avatar' => $data['avatar'] ? Storage::putFile("avatar",$data['avatar']) : null,
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
