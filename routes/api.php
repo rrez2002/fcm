@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DeviceController;
+use App\Http\Controllers\Api\PushNotificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,3 +28,10 @@ Route::controller(AuthController::class)
     });
 
 Route::apiResource('devices', DeviceController::class)->except(['show','update']);
+
+Route::controller(PushNotificationController::class)
+    ->prefix("push_notification")
+    ->name("push_notification.")
+    ->group(function (){
+        Route::post('users','publishToUsers')->name("publishToUsers");
+    });
