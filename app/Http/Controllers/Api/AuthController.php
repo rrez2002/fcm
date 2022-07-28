@@ -89,7 +89,7 @@ class AuthController extends Controller
      * @param BeamsRequest $request
      * @return JsonResponse
      * @throws \Exception
-     * @Route("api/auth/beams",methods=["POST"],name="auth.beams")
+     * @Route("api/auth/beams",methods=["GET"],name="auth.beams")
      */
     public function Beams(BeamsRequest $request)
     {
