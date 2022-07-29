@@ -105,7 +105,7 @@ class AuthController extends Controller
         if ($user->id == $userIdInQueryParam) {
             $beamsToken = $PushNotifications->generateToken((string)$user->id)['token'];
 
-            return new JsonResponse($beamsToken);
+            return new JsonResponse(["token"=>$beamsToken]);
         }
 
         return new JsonResponse(['message' => __("message.not_found", ["attribute" => __("attribute.user")])], Response::HTTP_NOT_FOUND);
