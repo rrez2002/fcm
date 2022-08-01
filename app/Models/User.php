@@ -51,6 +51,9 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
     ];
 
+    /**
+     * @return bool
+     */
     public function isAdmin():bool
     {
         return $this->is_admin;

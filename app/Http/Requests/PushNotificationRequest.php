@@ -13,7 +13,7 @@ class PushNotificationRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isAdmin();
+        return true;
     }
 
     /**
@@ -31,33 +31,32 @@ class PushNotificationRequest extends FormRequest
             "title" => ['required', 'string', "max:255"],
             "body" => ['required', 'string'],
             //
-            "to" => ['nullable', 'string'],
-            "registration_ids" => ['nullable', 'array'],
-            "registration_ids.*" => ['nullable', 'string'],
-            "condition" => ['nullable', 'string'],
-            "notification_key" => ['nullable', 'string'],
+            "registration_ids" => ['required', 'array'],
+            "registration_ids.*" => ['required', 'string'],
+            "condition" => ['required', 'string'],
+            "notification_key" => ['required', 'string'],
 
-            "time_to_live" => ['nullable', 'integer', 'min:1'],
-            "dry_run" => ['nullable', 'boolean'],
+            "time_to_live" => ['required', 'integer', 'min:1'],
+            "dry_run" => ['required', 'boolean'],
             //web
-            "icon" => ['nullable', 'url'],
-            "deep_link" => ['nullable', 'url'],
-            "hide_notification_if_site_has_focus" => ['nullable', 'bool'],
-            "click_action" => ['nullable', 'string'],
+            "icon" => ['required', 'url'],
+            "deep_link" => ['required', 'url'],
+            "hide_notification_if_site_has_focus" => ['required', 'bool'],
+            "click_action" => ['required', 'string'],
             //ios
-            "sound" => ['nullable', 'string'],
-            "badge" => ['nullable', 'string'], // only ios
-            "subtitle" => ['nullable', 'string'], // only ios
-            "body_loc_key" => ['nullable', 'string'],
-            "body_loc_args" => ['nullable', 'json'],
-            "title_loc_key" => ['nullable', 'string'],
-            "title_loc_args" => ['nullable', 'json'],
+            "sound" => ['required', 'string'],
+            "badge" => ['required', 'string'], // only ios
+            "subtitle" => ['required', 'string'], // only ios
+            "body_loc_key" => ['required', 'string'],
+            "body_loc_args" => ['required', 'json'],
+            "title_loc_key" => ['required', 'string'],
+            "title_loc_args" => ['required', 'json'],
             //android
-            "android_channel_id" => ['nullable', 'string'], // only android
-            "color" => ['nullable', 'string'], // only android
-            "tag" => ['nullable', 'string'], // only android
+            "android_channel_id" => ['required', 'string'], // only android
+            "color" => ['required', 'string'], // only android
+            "tag" => ['required', 'string'], // only android
 
-            "restricted_package_name" => ['nullable', 'string'], // only android
+            "restricted_package_name" => ['required', 'string'], // only android
 
         ];
     }

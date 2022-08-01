@@ -56,7 +56,7 @@ class PushNotificationController extends Controller
                         "deep_link" => $data['deep_link'],
                         "hide_notification_if_site_has_focus" => $data['hide_notification_if_site_has_focus'],
                         "click_action" => $data['click_action'],
-                    ]
+                    ],
                 ],
                 "fcm" => [
                     "sound" => $data['sound'],
@@ -73,7 +73,7 @@ class PushNotificationController extends Controller
                         "body_loc_args" => $data['body_loc_args'],
                         "title_loc_key" => $data['title_loc_key'],
                         "title_loc_args" => $data['title_loc_args'],
-                    ]
+                    ],
                 ],
                 "apns" => [
                     'sound' => $data['sound'],
@@ -90,7 +90,7 @@ class PushNotificationController extends Controller
                         "body_loc_args" => $data['body_loc_args'],
                         "title_loc_key" => $data['title_loc_key'],
                         "title_loc_args" => $data['title_loc_args'],
-                    ]
+                    ],
                 ],
 
             ]
