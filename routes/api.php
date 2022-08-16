@@ -35,3 +35,12 @@ Route::controller(PushNotificationController::class)
     ->group(function (){
         Route::post('users','publishToUsers')->name("publishToUsers");
     });
+
+Route::controller(FileController::class)
+    ->prefix('file')
+    ->name('file.')
+    ->group(function () {
+        Route::get("", 'index')->name('index');
+        Route::post("", 'store')->name('store');
+        Route::delete("", 'destroy')->name('destroy');
+    });
