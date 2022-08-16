@@ -13,7 +13,7 @@ class Device extends Model
     use HasFactory, SoftDeletes;
 
     /**
-     * @var string<int, string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'uuid',

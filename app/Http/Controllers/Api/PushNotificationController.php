@@ -31,6 +31,7 @@ class PushNotificationController extends Controller
      * @param PushNotificationRequest $request
      * @return JsonResponse
      * @throws Exception
+     * @Route("api/push_notification/users",methods=["POST"],name="push_notification.publishToUsers")
      */
     public function publishToUsers(PushNotificationRequest $request)
     {
@@ -45,7 +46,7 @@ class PushNotificationController extends Controller
             $data['users'],
             [
                 "web" => [
-                    "time_to_live" => $data['time_to_live'],
+                    "time_to_live" => (int)$data['time_to_live'],
                     "dry_run" => $data['dry_run'],
 
                     "notification" => [
@@ -54,49 +55,42 @@ class PushNotificationController extends Controller
                         "icon" => $data['icon'],
                         "sound" => $data['sound'],
                         "deep_link" => $data['deep_link'],
-                        "hide_notification_if_site_has_focus" => $data['hide_notification_if_site_has_focus'],
                         "click_action" => $data['click_action'],
+                        "hide_notification_if_site_has_focus" => (bool)$data['hide_notification_if_site_has_focus'],
                     ],
                 ],
                 "fcm" => [
-                    "sound" => $data['sound'],
                     "notification" => [
                         "title" => $data['title'],
                         "body" => $data['body'],
                         "icon" => $data['icon'],
                         "color" => $data['color'],
                         "tag" => $data['tag'],
-                        "android_channel_id" => $data['android_channel_id'],
                         "click_action" => $data['click_action'],
-
-                        "body_loc_key" => $data['body_loc_key'],
-                        "body_loc_args" => $data['body_loc_args'],
-                        "title_loc_key" => $data['title_loc_key'],
-                        "title_loc_args" => $data['title_loc_args'],
+                        "hide_notification_if_site_has_focus" => (bool)$data['hide_notification_if_site_has_focus'],
+                        "sound" => $data['sound'],
                     ],
                 ],
                 "apns" => [
-                    'sound' => $data['sound'],
-                    'badge' => $data['badge'],
                     "alert" => [
                         "title" => $data['title'],
+                        'subtitle' => $data['subtitle'],
                         "body" => $data['body'],
                         "icon" => $data['icon'],
                         "color" => $data['color'],
 
-                        "click_action" => $data['click_action'],
+                        'sound' => $data['sound'],
+                        'badge' => $data['badge'],
 
-                        "body_loc_key" => $data['body_loc_key'],
-                        "body_loc_args" => $data['body_loc_args'],
-                        "title_loc_key" => $data['title_loc_key'],
-                        "title_loc_args" => $data['title_loc_args'],
+                        "click_action" => $data['click_action'],
+                        "hide_notification_if_site_has_focus" => (bool)$data['hide_notification_if_site_has_focus'],
                     ],
                 ],
 
             ]
         );
 
-        return new JsonResponse(['message' => __("message.sended", ["attribute" => __("push notification")])], Response::HTTP_NOT_FOUND);
+        return new JsonResponse(['message' => __("message.sended", ["attribute" => __("push notification")])], Response::HTTP_OK);
     }
 
 
