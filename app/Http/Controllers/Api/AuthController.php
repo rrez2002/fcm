@@ -60,7 +60,7 @@ class AuthController extends Controller
             return new JsonResponse(["message" => __("auth.login"),"token" => $token],Response::HTTP_OK);
 
         }
-        return new JsonResponse(["message" => __("auth.login_failed")],Response::HTTP_OK);
+        return new JsonResponse(["message" => __("auth.login_failed")],Response::HTTP_BAD_REQUEST);
     }
 
     /**
