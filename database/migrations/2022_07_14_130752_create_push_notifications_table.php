@@ -19,6 +19,10 @@ return new class extends Migration
             $table->morphs("push_notifiable");
             $table->string("title");
             $table->text("body")->fulltext();
+            $table->string("banner");
+            $table->string("icon");
+            $table->string("action");
+            $table->boolean("hide_notification_if_site_has_focus");
             $table->timestamps();
         });
     }

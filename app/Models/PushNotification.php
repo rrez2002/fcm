@@ -16,6 +16,17 @@ class PushNotification extends Model
     protected $fillable = [
         "title",
         "body",
+        "banner",
+        "icon",
+        "action",
+        "hide_notification_if_site_has_focus",
+    ];
+
+    /**
+     * @var array<string,string>
+     */
+    protected $casts = [
+        "hide_notification_if_site_has_focus" => "boolean",
     ];
 
     /**

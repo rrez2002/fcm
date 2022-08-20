@@ -33,6 +33,7 @@ class PushNotificationRequest extends FormRequest
             "icon" => ['required', 'url'],
             "sound" => ['required', 'url'],
             "click_action" => ['required', 'string'],
+            "banner" => ['required', 'url'],
 
             //
 //            "condition" => ['required', 'string'],

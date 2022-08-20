@@ -56,6 +56,7 @@ class PushNotificationController extends Controller
                         "sound" => $data['sound'],
                         "deep_link" => $data['deep_link'],
                         "click_action" => $data['click_action'],
+                        "banner" => $data['banner'],
                         "hide_notification_if_site_has_focus" => (bool)$data['hide_notification_if_site_has_focus'],
                     ],
                 ],
@@ -67,6 +68,7 @@ class PushNotificationController extends Controller
                         "color" => $data['color'],
                         "tag" => $data['tag'],
                         "click_action" => $data['click_action'],
+                        "banner" => $data['banner'],
                         "hide_notification_if_site_has_focus" => (bool)$data['hide_notification_if_site_has_focus'],
                         "sound" => $data['sound'],
                     ],
@@ -83,6 +85,7 @@ class PushNotificationController extends Controller
                         'badge' => $data['badge'],
 
                         "click_action" => $data['click_action'],
+                        "banner" => $data['banner'],
                         "hide_notification_if_site_has_focus" => (bool)$data['hide_notification_if_site_has_focus'],
                     ],
                 ],
