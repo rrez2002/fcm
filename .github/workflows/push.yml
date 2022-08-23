@@ -17,5 +17,5 @@ jobs:
         run: git push
       - name: migrate Database
         run: php artisan migrate
-      - name: Execute tests (Unit and Feature tests) via
+      - name: Execute tests
         run: php artisan test
