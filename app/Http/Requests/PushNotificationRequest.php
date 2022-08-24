@@ -25,7 +25,7 @@ class PushNotificationRequest extends FormRequest
     {
         return [
             "users" => ['required', 'array'],
-            "users.*" => ['required', 'int', 'exists:users,id'],
+            "users.*" => ['required', 'string', 'exists:users,id'],
             //
 
             "title" => ['required', 'string', "max:255"],

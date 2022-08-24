@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: push commit
         run: git push
-      - name: migrate Database
-        run: php artisan migrate
+      #- name: migrate Database
+        #run: php artisan migrate
       - name: Execute tests
         run: php artisan test
