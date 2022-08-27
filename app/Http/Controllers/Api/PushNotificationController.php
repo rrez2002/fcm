@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PushNotificationRequest;
 use App\Http\Resources\PushNotificationCollection;
 use App\Models\PushNotification;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -37,6 +38,18 @@ class PushNotificationController extends Controller
     {
         $data = $request->validated();
 
+
+        $users = User::whereIn("id", $data['users']);
+        foreach ($users as $user){
+            $user->push_notifiable()->create([
+                "title" => $data['title'],
+                "body" => $data['body'],
+                "icon" => $data['icon'],
+                "action" => $data['click_action'],
+                "banner" => $data['banner'],
+                "hide_notification_if_site_has_focus" => (bool)$data['hide_notification_if_site_has_focus'],
+            ]);
+        }
 
         $PushNotification = new PushNotifications([
             "instanceId" => config('broadcasting.connections.pusher.beams_instance_id'),

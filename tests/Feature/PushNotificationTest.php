@@ -9,6 +9,8 @@ use Tests\TestCase;
 
 class PushNotificationTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
@@ -17,12 +19,12 @@ class PushNotificationTest extends TestCase
     public function test_can_publish_to_users():void
     {
         $user = User::factory(1)->create()[0];
+        // send push_notification to users
+        $users = User::factory(5)->create();
         $token = $user->createToken("test")->plainTextToken;
 
         $this->postJson(route("push_notification.publishToUsers"), [
-            "users" => [
-                (string)$user->id
-            ],
+            "users" => $users->map(fn($user) => (string)$user->id),
 
             "title" => "::title::",
             "body" => "::body::",
